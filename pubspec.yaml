@@ -35,7 +35,6 @@ dependencies:
   equatable: ^2.0.7
 
   # Models
-  freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
 
   # Storage
@@ -68,9 +67,7 @@ dev_dependencies:
 
   bloc_test: ^10.0.0
   build_runner: ^2.5.4
-  freezed: ^3.1.0
   json_serializable: ^6.9.5
-  hive_generator: ^2.0.1
   mocktail: ^1.0.4
   integration_test:
     sdk: flutter
