@@ -1,1 +1,14 @@
-[{"name":"Desk","condition":"Good condition"},{"name":"Desk Chair","condition":"Action required"},{"name":"Mattress","condition":"Good condition"}]
+[
+    {
+        "name":"Desk",
+        "condition":"Good condition"
+    },
+    {
+        "name":"Desk Chair",
+        "condition":"Action required"
+    },
+    {
+        "name":"Mattress",
+        "condition":"Good condition"
+    }
+]

@@ -1,1 +1,9 @@
-[{"id":"inspection_001","title":"Pre-arrival inspection","date":"2026-07-09","chargeIds":["charge_001","charge_002"],"notes":"The room was inspected before arrival. The desk and storage are in good condition; the chair damage has been recorded for review."}]
+[
+  {
+    "id": "inspection_001",
+    "title": "Pre-Arrival Inspection",
+    "date": "2026-07-09",
+    "chargeIds": ["charge_001"],
+    "notes": "Initial inspection completed."
+  }
+]
