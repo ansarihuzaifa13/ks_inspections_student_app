@@ -12,10 +12,27 @@ class Booking {
 }
 
 class Charge {
-  const Charge({required this.id, required this.item, required this.type, required this.notes, required this.location, required this.amount, required this.photos, required this.raisedOn, required this.status, this.contestReason, this.updatedAt});
-  final String id; final String item; final String type; final String notes; final String location; final double amount; final List<String> photos; final DateTime raisedOn; final ChargeStatus status; final String? contestReason; final DateTime? updatedAt;
-  factory Charge.fromJson(Map<String, dynamic> json) => Charge(id: json['id'] as String, item: json['item'] as String, type: json['type'] as String, notes: json['notes'] as String, location: json['location'] as String, amount: (json['amount'] as num).toDouble(), photos: (json['photos'] as List<dynamic>).cast<String>(), raisedOn: DateTime.parse(json['raisedOn'] as String), status: ChargeStatusX.fromJson(json['status'] as String));
-  Charge copyWith({ChargeStatus? status, String? contestReason, DateTime? updatedAt}) => Charge(id: id, item: item, type: type, notes: notes, location: location, amount: amount, photos: photos, raisedOn: raisedOn, status: status ?? this.status, contestReason: contestReason ?? this.contestReason, updatedAt: updatedAt ?? this.updatedAt);
+  const Charge({
+    required this.id, 
+    required this.inspectionId,
+    required this.item, 
+    required this.type, 
+    required this.notes, 
+    required this.location, 
+    required this.amount, 
+    required this.photos, 
+    required this.raisedOn, 
+    required this.status,
+    this.contestReason, 
+    this.updatedAt
+    });
+  final String id; 
+  final String inspectionId;
+  final String item; 
+  final String type; 
+  final String notes; final String location; final double amount; final List<String> photos; final DateTime raisedOn; final ChargeStatus status; final String? contestReason; final DateTime? updatedAt;
+  factory Charge.fromJson(Map<String, dynamic> json) => Charge(id: json['id'] as String, inspectionId: json['inspectionId'] as String,item: json['item'] as String, type: json['type'] as String, notes: json['notes'] as String, location: json['location'] as String, amount: (json['amount'] as num).toDouble(), photos: (json['photos'] as List<dynamic>).cast<String>(), raisedOn: DateTime.parse(json['raisedOn'] as String), status: ChargeStatusX.fromJson(json['status'] as String));
+  Charge copyWith({ChargeStatus? status, String? contestReason, DateTime? updatedAt}) => Charge(id: id, inspectionId: inspectionId, item: item, type: type, notes: notes, location: location, amount: amount, photos: photos, raisedOn: raisedOn, status: status ?? this.status, contestReason: contestReason ?? this.contestReason, updatedAt: updatedAt ?? this.updatedAt);
 }
 
 class Inspection {

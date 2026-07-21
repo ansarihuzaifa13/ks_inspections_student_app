@@ -7,6 +7,7 @@ void main() {
     test('marks outstanding charges as active and not in history', () {
       final charge = Charge(
         id: 'charge_1',
+        inspectionId: 'inspection_1',
         item: 'Desk Chair',
         type: 'replace',
         notes: 'Broken chair',
@@ -25,6 +26,7 @@ void main() {
     test('marks accepted charges as history and uses the accept banner', () {
       final charge = Charge(
         id: 'charge_2',
+        inspectionId: 'inspection_2',
         item: 'Desk Chair',
         type: 'repair',
         notes: 'Loose wheel',
@@ -43,6 +45,7 @@ void main() {
     test('deadline is derived from raised on date plus the grace period', () {
       final charge = Charge(
         id: 'charge_3',
+        inspectionId: 'inspection_3',
         item: 'Lightbulb',
         type: 'replace',
         notes: 'Faulty bulb',

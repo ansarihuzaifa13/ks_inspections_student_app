@@ -1,11 +1,12 @@
 [
   {
     "id": "charge_001",
+    "inspectionId": "inspection_001",
     "item": "Desk Chair",
     "type": "replace",
     "notes": "Chair leg broken during inspection.",
     "location": "Bedroom",
-    "amount": 75,
+    "amount": 75.0,
     "raisedOn": "2026-07-10",
     "status": "outstanding",
     "photos": [

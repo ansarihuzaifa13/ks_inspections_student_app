@@ -27,30 +27,162 @@ class ChargeDetailPage extends StatelessWidget {
 
     if (charge == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Charge')),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.transparent,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            onPressed: () {
+              AppRouter.router.go('/inspection/${charge?.inspectionId}');
+            },
+          ),
+          title: const Text(
+            'Charge Details',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Charge')),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () {
+            AppRouter.router.go('/inspection/${charge.inspectionId}');
+          },
+        ),
+        title: const Text(
+          'Charge Details',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Please review this charge and decide whether to accept it or contest it. If no action is taken, it will be accepted on your behalf by ${chargeDeadline(charge).day}/${chargeDeadline(charge).month}/${chargeDeadline(charge).year}.',
-                style: Theme.of(context).textTheme.bodyLarge,
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SafeArea(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                minimumSize: const Size.fromHeight(54),
+                              ),
+                              onPressed: () {
+                                AppRouter.router.go('/contest/${charge.id}');
+                              },
+                              icon: const Icon(Icons.gavel_outlined),
+                              label: const Text('Contest'),
+                            ),
+                          ),
+
+                          const SizedBox(width: 14),
+
+                          Expanded(
+                            child: FilledButton.icon(
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size.fromHeight(54),
+                              ),
+                              onPressed: () async {
+                                await maintenanceBloc.acceptCharge(charge.id);
+
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Charge accepted successfully.',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.check_circle),
+                              label: const Text('Accept'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.schedule, color: Colors.orange),
+
+                          const SizedBox(width: 10),
+
+                          Expanded(
+                            child: Text(
+                              'Please review this charge before '
+                              '${chargeDeadline(charge).day}/${chargeDeadline(charge).month}/${chargeDeadline(charge).year}.',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
+
+              const Text(
+                'Charge Information',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+
+              const SizedBox(height: 12),
+
               _InfoTile(label: 'Item', value: charge.item),
+
               _InfoTile(label: 'Type', value: charge.type.toUpperCase()),
+
               _InfoTile(label: 'Notes', value: charge.notes),
-              _InfoTile(label: 'Amount', value: '£${charge.amount.toStringAsFixed(2)}'),
+
+              _InfoTile(
+                label: 'Amount',
+                value: '£${charge.amount.toStringAsFixed(2)}',
+              ),
               const SizedBox(height: 20),
-              Text('Evidence', style: Theme.of(context).textTheme.titleMedium),
+              const Row(
+                children: [
+                  Icon(Icons.photo_library_outlined, color: Colors.blue),
+
+                  SizedBox(width: 8),
+
+                  Text(
+                    'Evidence',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
               const SizedBox(height: 12),
               SizedBox(
                 height: 110,
@@ -84,7 +216,8 @@ class ChargeDetailPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () => AppRouter.router.go('/contest/${charge.id}'),
+                      onPressed: () =>
+                          AppRouter.router.go('/contest/${charge.id}'),
                       icon: const Icon(Icons.gavel_outlined),
                       label: const Text('Contest'),
                     ),
@@ -96,7 +229,9 @@ class ChargeDetailPage extends StatelessWidget {
                         await maintenanceBloc.acceptCharge(charge.id);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Charge accepted successfully.')),
+                            const SnackBar(
+                              content: Text('Charge accepted successfully.'),
+                            ),
                           );
                         }
                       },
@@ -118,18 +253,44 @@ class _InfoTile extends StatelessWidget {
   final String label;
   final String value;
 
-  const _InfoTile({required this.label, required this.value});
+  const _InfoTile({
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.grey.shade700)),
-          const SizedBox(height: 4),
-          Text(value, style: Theme.of(context).textTheme.bodyLarge),
+
+          SizedBox(
+            width: 90,
+            child: Text(
+              label,
+              style: TextStyle(
+                color: Colors.grey.shade700,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ],
       ),
     );

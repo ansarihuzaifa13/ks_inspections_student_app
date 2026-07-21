@@ -1,9 +1,44 @@
 [
   {
     "id": "inspection_001",
+    "inspection_id": "inspection_001",
     "title": "Pre-Arrival Inspection",
+    "status": "Completed",
+    "priority": "Medium",
     "date": "2026-07-09",
-    "chargeIds": ["charge_001"],
-    "notes": "Initial inspection completed."
+    "scheduledTime": "10:30 AM",
+    "completedDate": "2026-07-09",
+    "propertyName": "Property A",
+    "propertyCode": "PR-204",
+    "inspector": {
+      "name": "John Smith",
+      "avatar": ""
+    },
+    "tenant": {
+      "name": "Alex Johnson"
+    },
+    "score": 96,
+    "chargeIds": [
+      "charge_001"
+    ],
+    "attachments": [
+      {
+        "id": "photo_001",
+        "type": "image",
+        "title": "Kitchen Overview"
+      },
+      {
+        "id": "photo_002",
+        "type": "image",
+        "title": "Bedroom Window"
+      }
+    ],
+    "summary": "The property was inspected prior to tenant arrival. All major fixtures and fittings were found to be in good condition.",
+    "notes": "Initial inspection completed. Minor paint scuffs were observed near the entrance hallway. Kitchen appliances were tested and functioning correctly. Smoke alarms were checked and passed inspection.",
+    "recommendations": [
+      "Repaint hallway wall before check-in.",
+      "Replace bathroom silicone within the next maintenance cycle.",
+      "Clean external windows."
+    ]
   }
 ]
